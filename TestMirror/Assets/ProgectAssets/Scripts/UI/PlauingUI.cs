@@ -24,11 +24,13 @@ public class PlauingUI : MonoBehaviour
 
     public void OpenExitPanelOpponent()
     {
-        _exitOpponent.enabled = true;
+        if(!_win.enabled && !_lose.enabled)
+            _exitOpponent.enabled = true;
     }
     public void OpenExitPanelPlayer()
     {
-        _exitPlayer.enabled = true;
+        if (!_win.enabled && !_lose.enabled)
+            _exitPlayer.enabled = true;
     }
     public void CloseExitPanelPlayer()
     {
@@ -42,10 +44,12 @@ public class PlauingUI : MonoBehaviour
 
     public void OpenWin()
     {
+        _lose.enabled = false;
         _win.enabled = true;
     }
     public void OpenLose()
     {
+        _win.enabled = false;
         _lose.enabled = true;
     }
 

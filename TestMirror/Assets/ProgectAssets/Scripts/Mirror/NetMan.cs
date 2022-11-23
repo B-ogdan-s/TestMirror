@@ -42,6 +42,7 @@ public class NetMan : NetworkManager
     {
         LobbyManager._instance.AddPlayer(connection.connectionId);
     }
+
     [Server]
     public void AddPlayerToGame(int matchId, int connectionId)
     {
@@ -119,13 +120,14 @@ public class NetMan : NetworkManager
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
-        if (conn.identity.gameObject.TryGetComponent(out Player player))
+        LobbyManager._instance.ExitPlayer(conn.connectionId);
+        if (conn.identity != null)
         {
-            LobbyManager._instance.DisconectPlayer(player.CurrentMatchId, conn.connectionId);
-
-            NetworkClient.connection.Send(new CustomMessages.DestroyLobbyMessage());
+            if (conn.identity.gameObject.TryGetComponent(out Player player))
+            {
+                LobbyManager._instance.DisconectPlayer(player.CurrentMatchId, conn.connectionId);
+            }
         }
         base.OnServerDisconnect(conn);
-
     }
 }

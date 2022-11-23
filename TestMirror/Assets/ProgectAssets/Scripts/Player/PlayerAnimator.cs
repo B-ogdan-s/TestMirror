@@ -13,6 +13,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void Dead()
     {
+        _playerAnimator.StopPlayback();
         _playerAnimator.SetBool("IsDead", true);
     }
 

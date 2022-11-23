@@ -6,5 +6,4 @@ using UnityEngine;
 public class CustomMessages
 {
     internal struct CreateLobbyMessage : NetworkMessage { }
-    internal struct DestroyLobbyMessage : NetworkMessage { }
 }

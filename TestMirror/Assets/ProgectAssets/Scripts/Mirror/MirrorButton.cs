@@ -25,4 +25,8 @@ public class MirrorButton : MonoBehaviour
     {
         NetMan._netMan.StopServer();
     }
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }

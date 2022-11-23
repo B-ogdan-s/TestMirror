@@ -22,7 +22,6 @@ public class LobbyManager : NetworkBehaviour
     private void Awake()
     {
         _instance = this;
-        NetworkServer.RegisterHandler<CustomMessages.DestroyLobbyMessage>(ExitPlayer);
     }
 
     [Server]
@@ -44,6 +43,15 @@ public class LobbyManager : NetworkBehaviour
 
 
             StartGame(_matches[_matches.Count - 1]._id, pley);
+        }
+    }
+    [Server]
+    public void ExitPlayer(int id)
+    {
+        if (_players.Count > 0)
+        {
+            if (_players.Peek() == id)
+                _players.Dequeue();
         }
     }
 
@@ -189,12 +197,6 @@ public class LobbyManager : NetworkBehaviour
                 j.GetComponent<NetworkIdentity>().connectionToClient.Send(onPlayerExitMessage);
             }
         }
-    }
-    [Server]
-    private void ExitPlayer(NetworkConnection connection, CustomMessages.DestroyLobbyMessage message)
-    {
-        if(connection.connectionId == _players.Peek())
-            _players.Dequeue();
     }
 }
 
