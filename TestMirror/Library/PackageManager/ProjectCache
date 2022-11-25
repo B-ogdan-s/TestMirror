@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638041192593805817
+      ticks: 638049846470000000
     m_Hash: 1915251130
   m_LockFileStatus:
     m_FilePath: D:/GitHab/TestMirror/TestMirror/Packages/packages-lock.json
@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638041192593865861
+      ticks: 638049846470000000
     m_Hash: 3721929622
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
