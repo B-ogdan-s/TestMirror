@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour
 {
+    public Player _player;
 }

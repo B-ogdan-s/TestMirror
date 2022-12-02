@@ -1,56 +1,59 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlauingUI : MonoBehaviour
 {
-    [SerializeField] private Canvas _exitOpponent;
-    [SerializeField] private Canvas _exitPlayer;
+    [SerializeField] private Canvas _exitPlayerCanvas;
+    [SerializeField] private Canvas _loseCanvas;
 
-    [SerializeField] private Canvas _win;
-    [SerializeField] private Canvas _lose;
+    [SerializeField] private TextMeshProUGUI _winText;
 
     public static PlauingUI _instance { get; private set; }
 
     private void Awake()
     {
         _instance = this;
-        _exitOpponent.enabled = false;
-        _exitPlayer.enabled = false;
-        _win.enabled = false;
-        _lose.enabled = false;
-    }
 
-    public void OpenExitPanelOpponent()
-    {
-        if(!_win.enabled && !_lose.enabled)
-            _exitOpponent.enabled = true;
+        _exitPlayerCanvas.enabled = false;
+        _loseCanvas.enabled = false;
+
+        DeadState._Enter += OpenLose;
+        DeadState._Exit += CloseLose;
     }
     public void OpenExitPanelPlayer()
     {
-        if (!_win.enabled && !_lose.enabled)
-            _exitPlayer.enabled = true;
-    }
+        if (!_loseCanvas.enabled)
+            _exitPlayerCanvas.enabled = true;
+    } 
     public void CloseExitPanelPlayer()
     {
-        _exitPlayer.enabled = false;
+        _exitPlayerCanvas.enabled = false;
     }
 
     public void ExitToGame()
     {
         NetMan._netMan.StopClient();
     }
-
-    public void OpenWin()
+    public void CloseLose()
     {
-        _lose.enabled = false;
-        _win.enabled = true;
+        _loseCanvas.enabled = false;
     }
     public void OpenLose()
     {
-        _win.enabled = false;
-        _lose.enabled = true;
+        _loseCanvas.enabled = true;
+    }
+
+    public void TextWin(int value)
+    {
+        _winText.text = value.ToString();
+    }
+    private void OnDestroy()
+    {
+        DeadState._Enter -= OpenLose;
+        DeadState._Exit -= CloseLose;
     }
 
 }

@@ -13,18 +13,6 @@ public class MirrorButton : MonoBehaviour
     {
         NetMan._netMan.StopClient();
     }
-    public void LogoutServer()
-    {
-        NetMan._netMan.StopClient();
-    }
-    public void StartServer()
-    {
-        NetMan._netMan.StartServer();
-    }
-    public void StopServer()
-    {
-        NetMan._netMan.StopServer();
-    }
     public void Exit()
     {
         Application.Quit();

@@ -15,13 +15,13 @@ public class PlayerAnimatorMessages : MonoBehaviour
     [ClientCallback]
     public void Attack()
     {
-        _player.SetAttack(true);
+        _player.CmdSetAttack(true);
 
     }
     [ClientCallback]
     public void StopAtack()
     {
-        _player.SetAttack(false);
+        _player.CmdSetAttack(false);
         _animator.SetBool("IsAttack", false);
     }
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField] private Animator _playerAnimator;
@@ -11,10 +10,24 @@ public class PlayerAnimator : MonoBehaviour
 
     private int vector = 1;
 
+    private void Awake()
+    {
+        DeadState._Exit += Restart;
+        //DeadState._Enter += Dead;
+    }
+    private void OnDestroy()
+    {
+        DeadState._Exit -= Restart;
+        //DeadState._Enter -= Dead;
+    }
     public void Dead()
     {
-        _playerAnimator.StopPlayback();
         _playerAnimator.SetBool("IsDead", true);
+    }
+
+    public void Restart()
+    {
+        _playerAnimator.SetBool("IsDead", false);
     }
 
     public void StartJump()
@@ -25,14 +38,14 @@ public class PlayerAnimator : MonoBehaviour
     {
         _playerAnimator.SetBool("IsJumping", false);
     }
-    public void StartMove(int value)
+    public void Move(int value)
     {
         _playerAnimator.SetBool("Speed", true);
 
         if (vector != value)
         {
             vector = value;
-            _player.SetFlip(vector);
+            _player.CmdSetFlip(vector);
         }
     }
     public void StopMove()
@@ -43,5 +56,10 @@ public class PlayerAnimator : MonoBehaviour
     public void Attack()
     {
         _playerAnimator.SetBool("IsAttack", true);
+    }
+
+    public void Flip()
+    {
+        transform.localScale = new Vector3(transform.localScale.x * -1, 1, 1);
     }
 }

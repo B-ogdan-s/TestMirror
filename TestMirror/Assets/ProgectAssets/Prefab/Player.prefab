@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1757e0c1ac8cc48b0bb43305ca4d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 6336126638971742464}
 --- !u!1 &2191533954969341839
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,6 +529,7 @@ GameObject:
   - component: {fileID: 4581700715813354070}
   - component: {fileID: 3843395147827780906}
   - component: {fileID: 6336126638971742464}
+  - component: {fileID: 5069191116129982751}
   - component: {fileID: 6949408948052006111}
   - component: {fileID: 4916442974820029585}
   - component: {fileID: 3379995775336898257}
@@ -607,19 +609,33 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  _wins: 0
   _maxHealth: 7
+  _healingValue: 3
   _damage: 1
-  _speed: 6.5
+  _speed: 4
   _jumpF: 185
-  _player: {fileID: 2191533954969341839}
-  _attack: {fileID: 1659198357009460054}
-  _slider: {fileID: 4912921219022289062}
-  _color: {r: 0.11764706, g: 0.4509804, b: 0.14901961, a: 1}
-  _image: {fileID: 6191217256192645499}
+  _attackTrigger: {fileID: 1659198357009460054}
   _rigidbody: {fileID: 3843395147827780906}
   _playerAnimator: {fileID: 1009715419592449734}
+  _playerAnimatorMessages: {fileID: 1058778639291054920}
+  _playerUI: {fileID: 5069191116129982751}
   _downTrigger: {fileID: 162088822841315320}
-  _isGrounded: 1
+--- !u!114 &5069191116129982751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6744341392689344038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1886b3242789c2b48a2e53f0ba2f7026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healBar: {fileID: 4912921219022289062}
+  _healColor: {r: 0.16206045, g: 0.46226418, b: 0.10204698, a: 1}
+  _SliderImage: {fileID: 6191217256192645499}
 --- !u!114 &6949408948052006111
 MonoBehaviour:
   m_ObjectHideFlags: 0

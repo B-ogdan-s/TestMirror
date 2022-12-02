@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +14,6 @@ public class LobbyManager : NetworkBehaviour
 
     public readonly SyncList<Match> _matches = new SyncList<Match>();
 
-    public Queue<int> _players = new Queue<int>();
     public Dictionary<int, Scene> _Game { get; private set; } = new Dictionary<int, Scene>();
 
 
@@ -24,43 +24,22 @@ public class LobbyManager : NetworkBehaviour
         _instance = this;
     }
 
-    [Server]
-    public void AddPlayer(int id)
+
+    #region Server
+
+    public override void OnStartServer()
     {
-        _players.Enqueue(id);
+        base.OnStartServer();
 
-        if(_players.Count >= _maxClient)
-        {
-            List<int> pley = new List<int>();
-            CreateLobby();
-
-
-            for (int i = 0; i < _maxClient; i++)
-            {
-                AddPlayerToMatch(_matches[_matches.Count - 1]._id, _players.Peek());
-                pley.Add(_players.Dequeue());
-            }
-
-
-            StartGame(_matches[_matches.Count - 1]._id, pley);
-        }
-    }
-    [Server]
-    public void ExitPlayer(int id)
-    {
-        if (_players.Count > 0)
-        {
-            if (_players.Peek() == id)
-                _players.Dequeue();
-        }
+        NetworkServer.RegisterHandler<CustomMessages.GetMatchesMessage>(GetMatch);
     }
 
     [Server]
     public void CreateLobby()
     {
-        int id = 0;
+        int id = 1;
 
-        for(int i = 0; i < _matches.Count; i++)
+        for (int i = 0; i < _matches.Count; i++)
         {
             if (_matches[i]._id == id)
             {
@@ -68,27 +47,30 @@ public class LobbyManager : NetworkBehaviour
                 i = 0;
             }
         }
-
         _matches.Add(new Match(id));
-
     }
 
     [Server]
-    public void AddPlayerToMatch(int id, int playerId)
+    public void AddPlayerToMatch(int playerId, int matchId)
     {
         int index = -1;
-        for(int i = 0; i < _matches.Count; i++)
+        for (int i = 0; i < _matches.Count; i++)
         {
-            if(_matches[i]._id == id)
+            if (_matches[i]._id == matchId)
             {
                 index = i;
                 break;
             }
         }
 
-        if(index == -1)
+        if (index == -1)
         {
             return;
+        }
+        if(_matches[index]._playersId.Count >= _maxClient)
+        {
+            return;
+            RoomManager._instance.ClearRoom();
         }
 
         Match match = _matches[index];
@@ -98,7 +80,10 @@ public class LobbyManager : NetworkBehaviour
         _matches.RemoveAt(index);
         match._playersId.Add(playerId);
         _matches.Add(match);
+
+        NetMan._netMan.AddPlayerToGame(match._id, playerId);
     }
+
     [Server]
     public void AddPlayer(Player player, int matchId)
     {
@@ -113,9 +98,9 @@ public class LobbyManager : NetworkBehaviour
     }
 
     [Server]
-    public void StartGame(int id, List<int> players)
+    public void StartGame(int player, int matchId)
     {
-        if(_Game.ContainsKey(id))
+        if (_Game.ContainsKey(matchId))
         {
             return;
         }
@@ -130,13 +115,11 @@ public class LobbyManager : NetworkBehaviour
             int index = SceneManager.sceneCount - 1;
             Scene scene = SceneManager.GetSceneAt(index);
 
-            _Game.Add(id, scene);
-            if (TryGetMatch(id, out Match match))
+            _Game.Add(matchId, scene);
+            if (TryGetMatch(matchId, out Match match))
             {
-                foreach (int player in players)
-                {
-                    NetMan._netMan.AddPlayerToGame(match._id, player);
-                }
+                match._playersId.Add(player);
+                NetMan._netMan.AddPlayerToGame(match._id, player);
             }
 
         };
@@ -157,47 +140,47 @@ public class LobbyManager : NetworkBehaviour
         return false;
     }
     [Server]
-    public void DisconectPlayer(int id, int playerId)
+    public void DisconectPlayer(int playerId)
     {
         Match mat = null;
         foreach (Match matche in _matches)
         {
-            if (matche._id == id)
+            for (int i = 0; i < matche._playersId.Count; i++)
             {
-                for (int i = 0; i < matche._playersId.Count; i++)
+                if (matche._playersId[i] == playerId)
                 {
-                    if (matche._playersId[i] == playerId)
-                    {
-                        matche._playersId.Remove(matche._playersId[i]);
-                        matche._players.Remove(matche._players[i]);
-                        mat = matche;
-                        break;
-                    }
+                    matche._playersId.Remove(matche._playersId[i]);
+                    matche._players.Remove(matche._players[i]);
+                    mat = matche;
+                    break;
                 }
-
-                break;
             }
         }
 
-        if(mat._players.Count == 0)
+        if (mat._playersId.Count == 0)
         {
             SceneManager.UnloadScene(_Game[mat._id]);
             _Game.Remove(mat._id);
             _matches.Remove(mat);
             return;
         }
-
-        if (mat != null)
-        {
-            foreach (var j in mat._players)
-            {
-                Debug.Log("Show message");
-                OnPlayerExitMessage onPlayerExitMessage;
-                onPlayerExitMessage.PlayerId = playerId;
-                j.GetComponent<NetworkIdentity>().connectionToClient.Send(onPlayerExitMessage);
-            }
-        }
     }
+
+    #endregion
+
+    private void GetMatch(NetworkConnection connection, CustomMessages.GetMatchesMessage message)
+    {
+        List<Match> match = new List<Match>();
+        for(int i = 0; i < _matches.Count; i++)
+        {
+            match.Add(_matches[i]);
+        }
+        CustomMessages.GetMatchesResponceMessage mes = new CustomMessages.GetMatchesResponceMessage();
+        mes.Matches = match;
+        mes.Max = _maxClient;
+        connection.Send(mes);
+    }
+
 }
 
 public class Match
