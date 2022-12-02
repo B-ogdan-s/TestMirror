@@ -8,23 +8,23 @@ public class PlayerAnimatorMessages : MonoBehaviour
 {
 
     [SerializeField] private Player _player;
-    [SerializeField] private Animator _animator;
+    //[SerializeField] private Animator _animator;
 
     public static event Action _Dead;
-
+    /*
     [ClientCallback]
-    public void Attack()
+    public void HookAttack()
     {
         _player.CmdSetAttack(true);
-
     }
+    */
     [ClientCallback]
     public void StopAtack()
     {
-        _player.CmdSetAttack(false);
-        _animator.SetBool("IsAttack", false);
+        //_player.CmdSetAttack(false);
+        _player.StopAttack();
+        //_animator.SetBool("IsAttack", false);
     }
-
     [ClientCallback]
     public void Dead()
     {

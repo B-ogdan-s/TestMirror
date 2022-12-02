@@ -9,7 +9,7 @@ public class Player : NetworkBehaviour
 {
     [SyncVar(hook = nameof(NewHealth))] private int _health;
     [SyncVar(hook = nameof(FlipSprite))] private int _flip = 1;
-    [SyncVar(hook = nameof(Attack))] private bool _isAttack = false;
+    [SyncVar(hook = nameof(HookAttack))] private bool _isAttack = false;
 
     [SyncVar(hook = nameof(WinAction))][SerializeField] private int _wins = 0;
 
@@ -46,18 +46,15 @@ public class Player : NetworkBehaviour
         NetMan._netMan.OnGameSceneLoaded += () =>
         {
             CmdSetHealth(_maxHealth);
-            CustomPlayerController._instance._Move += CmdMove;
-            CustomPlayerController._instance._Move += Move;
+            CustomPlayerController._instance._StartMove += StartMove;
             CustomPlayerController._instance._Jump += CmdJump;
-            CustomPlayerController._instance._Move += _playerAnimator.Move;
-            CustomPlayerController._instance._StopMove += _playerAnimator.StopMove;
-            CustomPlayerController._instance._AnimAttack += _playerAnimator.Attack;
+            CustomPlayerController._instance._Move += Move;
+            CustomPlayerController._instance._StopMove += StartIdel;
+            CustomPlayerController._instance._AnimAttack += Attack;
             PlayerAnimatorMessages._Dead += Dead;
             RestartPlayer._instance._Restart += CmdRestart;
-
             RestartPlayer._instance._Restart += Restart;
         };
-        CmdSetAttack(false);
 
         _downTrigger._Landing += CmdCheckGround;
         _downTrigger._Jump += CmdOutGround;
@@ -65,14 +62,11 @@ public class Player : NetworkBehaviour
     
     public override void OnStopLocalPlayer()
     {
-        Debug.Log("FFFDfsdfs");
-
-        CustomPlayerController._instance._Move -= CmdMove;
-        CustomPlayerController._instance._Move -= Move;
         CustomPlayerController._instance._Jump -= CmdJump;
-        CustomPlayerController._instance._Move -= _playerAnimator.Move;
-        CustomPlayerController._instance._StopMove -= _playerAnimator.StopMove;
-        CustomPlayerController._instance._AnimAttack -= _playerAnimator.Attack;
+        CustomPlayerController._instance._StartMove -= StartMove;
+        CustomPlayerController._instance._Move -= Move;
+        CustomPlayerController._instance._StopMove -= StartIdel;
+        CustomPlayerController._instance._AnimAttack -= Attack;
         PlayerAnimatorMessages._Dead -= Dead;
 
         _downTrigger._Landing -= CmdCheckGround;
@@ -110,6 +104,11 @@ public class Player : NetworkBehaviour
         _health = healthAmount;
     }
     [Command]
+    private void CmdSetAttack(bool value)
+    {
+        _isAttack = value;
+    }
+    [Command]
     private void CmdCheckGround()
     {
         _isGrounded = true;
@@ -138,12 +137,6 @@ public class Player : NetworkBehaviour
         _flip = value;
     }
     [Command]
-    public void CmdSetAttack(bool value)
-    {
-        _isAttack = value;
-    }
-
-    [Command]
     private void CmdDead()
     {
         _isLive = false;
@@ -166,9 +159,9 @@ public class Player : NetworkBehaviour
     private void WinAction(int _, int newValue)
     {
         if (isLocalPlayer)
-            PlauingUI._instance.TextWin(newValue);
+            LosePanelUI._instance.TextWin(newValue);
     }
-    public void Attack(bool oldValue, bool newValue)
+    public void HookAttack(bool oldValue, bool newValue)
     {
         _attackTrigger.SetActive(newValue);
     }
@@ -186,7 +179,7 @@ public class Player : NetworkBehaviour
             if (isLocalPlayer)
                 _attacking.CmdWin();
 
-            _playerAnimator.Dead();
+            _mashine.SetState(new DeadState(_playerAnimator));
             CmdDead();
             SetWin();
         }
@@ -195,7 +188,7 @@ public class Player : NetworkBehaviour
 
     private void Awake()
     {
-        _mashine = new StateMashine(new PlayingState());
+        _mashine = new StateMashine(new IdelState(_playerAnimator));
     }
 
 
@@ -207,8 +200,7 @@ public class Player : NetworkBehaviour
             Damage();
         }
     }
-
-    private void Move(int value)
+    private void ClientMove(int value)
     {
         transform.position += new Vector3(value, 0) * _speed * Time.fixedDeltaTime;
     }
@@ -228,16 +220,51 @@ public class Player : NetworkBehaviour
 
     private void Restart()
     {
-        _mashine.SetState(new PlayingState());
+        if(isLocalPlayer)
+        {
+            LosePanelUI._instance.CloseLose();
+        }    
+        StartIdel();
     }
 
     private void Dead()
     {
-        PlauingUI._instance.CloseLose();
+        if (_health > 0)
+        {
+            LosePanelUI._instance.CloseLose();
+        }
         if (isLocalPlayer && _health <= 0)
         {
-            _mashine.SetState(new DeadState());
+            LosePanelUI._instance.OpenLose();
         }
+    }
+
+    private void Move(int value)
+    {
+        ClientMove(value);
+        CmdMove(value);
+    }
+
+    private void StartMove(int value)
+    {
+        CmdSetFlip(value);
+        _mashine.SetState(new MoveState(_playerAnimator, value));
+    }
+
+    private void Attack()
+    {
+        CmdSetAttack(true);
+        _mashine.SetState(new AttackState(_playerAnimator, this));
+    }
+    public void StopAttack()
+    {
+        CmdSetAttack(false);
+        StartIdel();
+    }
+
+    private void StartIdel()
+    {
+        _mashine.SetState(new IdelState(_playerAnimator));
     }
 
     public void Damage()

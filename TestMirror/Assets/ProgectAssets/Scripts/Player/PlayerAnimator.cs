@@ -10,16 +10,6 @@ public class PlayerAnimator : MonoBehaviour
 
     private int vector = 1;
 
-    private void Awake()
-    {
-        DeadState._Exit += Restart;
-        //DeadState._Enter += Dead;
-    }
-    private void OnDestroy()
-    {
-        DeadState._Exit -= Restart;
-        //DeadState._Enter -= Dead;
-    }
     public void Dead()
     {
         _playerAnimator.SetBool("IsDead", true);
@@ -38,15 +28,9 @@ public class PlayerAnimator : MonoBehaviour
     {
         _playerAnimator.SetBool("IsJumping", false);
     }
-    public void Move(int value)
+    public void Move()
     {
         _playerAnimator.SetBool("Speed", true);
-
-        if (vector != value)
-        {
-            vector = value;
-            _player.CmdSetFlip(vector);
-        }
     }
     public void StopMove()
     {
@@ -56,6 +40,10 @@ public class PlayerAnimator : MonoBehaviour
     public void Attack()
     {
         _playerAnimator.SetBool("IsAttack", true);
+    }
+    public void StopAttack()
+    {
+        _playerAnimator.SetBool("IsAttack", false);
     }
 
     public void Flip()

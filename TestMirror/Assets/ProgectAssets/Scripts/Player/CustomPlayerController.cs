@@ -8,6 +8,7 @@ public class CustomPlayerController : MonoBehaviour
 
     public static CustomPlayerController _instance;
 
+    public event Action<int> _StartMove;
     public event Action<int> _Move;
     public event Action _StopMove;
     public event Action _Jump;
@@ -39,6 +40,7 @@ public class CustomPlayerController : MonoBehaviour
 
     public void MoveButtonDown(int value)
     {
+        _StartMove?.Invoke(value);
         if(Mathf.Abs(_value) < 1)
             _value += value;
     }
