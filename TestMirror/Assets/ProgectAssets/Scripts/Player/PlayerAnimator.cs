@@ -7,9 +7,6 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] private Animator _playerAnimator;
     [SerializeField] private Player _player;
 
-
-    private int vector = 1;
-
     public void Dead()
     {
         _playerAnimator.SetBool("IsDead", true);

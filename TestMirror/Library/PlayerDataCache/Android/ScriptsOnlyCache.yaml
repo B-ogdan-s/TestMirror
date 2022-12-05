@@ -14,9 +14,9 @@ ScriptsOnlyBuild:
     - LobbyButton
     - LobbyManager
     - LoginUI
+    - LosePanelUI
     - MirrorButton
     - NetMan
-    - PlauingUI
     - PlaySoundBehaviour
     - Player
     - PlayerAnimator
@@ -141,13 +141,13 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
+      Script: {instanceID: 1808}
+    - Class: 114
       Script: {instanceID: 1810}
     - Class: 114
-      Script: {instanceID: 1812}
+      Script: {instanceID: 2692}
     - Class: 114
-      Script: {instanceID: 2694}
-    - Class: 114
-      Script: {instanceID: 2868}
+      Script: {instanceID: 2866}
     - Class: 114
       Script: {instanceID: 3350}
     - Class: 114
@@ -212,21 +212,21 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
+      Script: {instanceID: 1806}
+    - Class: 114
       Script: {instanceID: 1808}
     - Class: 114
       Script: {instanceID: 1810}
     - Class: 114
-      Script: {instanceID: 1812}
+      Script: {instanceID: 1966}
     - Class: 114
-      Script: {instanceID: 1968}
+      Script: {instanceID: 2670}
     - Class: 114
-      Script: {instanceID: 2672}
+      Script: {instanceID: 2866}
     - Class: 114
-      Script: {instanceID: 2868}
+      Script: {instanceID: 2938}
     - Class: 114
-      Script: {instanceID: 2940}
-    - Class: 114
-      Script: {instanceID: 3284}
+      Script: {instanceID: 3282}
     - Class: 114
       Script: {instanceID: 3350}
     - Class: 114
@@ -309,33 +309,33 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
+      Script: {instanceID: 1806}
+    - Class: 114
       Script: {instanceID: 1808}
     - Class: 114
       Script: {instanceID: 1810}
     - Class: 114
       Script: {instanceID: 1812}
     - Class: 114
-      Script: {instanceID: 1814}
+      Script: {instanceID: 1818}
     - Class: 114
       Script: {instanceID: 1820}
     - Class: 114
-      Script: {instanceID: 1822}
+      Script: {instanceID: 1966}
     - Class: 114
-      Script: {instanceID: 1968}
+      Script: {instanceID: 2306}
     - Class: 114
-      Script: {instanceID: 2308}
+      Script: {instanceID: 2386}
     - Class: 114
-      Script: {instanceID: 2388}
+      Script: {instanceID: 2532}
     - Class: 114
-      Script: {instanceID: 2534}
+      Script: {instanceID: 2550}
     - Class: 114
-      Script: {instanceID: 2552}
+      Script: {instanceID: 2642}
     - Class: 114
-      Script: {instanceID: 2644}
+      Script: {instanceID: 2670}
     - Class: 114
-      Script: {instanceID: 2672}
-    - Class: 114
-      Script: {instanceID: 2868}
+      Script: {instanceID: 2866}
     - Class: 114
       Script: {instanceID: 3350}
     - Class: 114
@@ -349,11 +349,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3582}
     - Class: 114
-      Script: {instanceID: 3704}
+      Script: {instanceID: 3706}
     - Class: 114
-      Script: {instanceID: 3814}
+      Script: {instanceID: 3816}
     - Class: 114
-      Script: {instanceID: 3846}
+      Script: {instanceID: 3848}
     - Class: 114
       Script: {instanceID: 3902}
     - Class: 114
@@ -461,7 +461,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 8010}
     - Class: 114
-      Script: {instanceID: 24844}
+      Script: {instanceID: 25574}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -720,7 +720,7 @@ ScriptsOnlyBuild:
       Hash: 1d82830d85da4290ece2ed4bec1a8dea
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: PlauingUI
+    className: LosePanelUI
   - hash:
       serializedVersion: 2
       Hash: 31995eb8416877c9afd92b5d1b50df0d
@@ -2031,7 +2031,7 @@ ScriptsOnlyBuild:
     className: PlayerScore
   - hash:
       serializedVersion: 2
-      Hash: 578977344cae0c482476350081d99c13
+      Hash: 8c70d0118cf6d8d3c73dbee7ba6e8ee9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerAnimatorMessages
