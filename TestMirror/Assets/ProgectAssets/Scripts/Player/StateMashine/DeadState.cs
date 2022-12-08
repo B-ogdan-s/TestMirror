@@ -16,15 +16,15 @@ public class DeadState : PlayerState
 
     public override void Enter()
     {
-        CustomPlayerController._instance.enabled = false;
         _animator.Dead();
+        CustomPlayerController._instance.enabled = false;
         _Enter?.Invoke();
     }
 
     public override void Exit()
     {
-        CustomPlayerController._instance.enabled = true;
         _animator.Restart();
+        CustomPlayerController._instance.enabled = true;
         _Exit?.Invoke();
     }
 }

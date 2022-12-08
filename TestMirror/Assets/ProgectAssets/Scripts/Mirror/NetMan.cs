@@ -9,7 +9,7 @@ public class NetMan : NetworkManager
 {
     [SerializeField, Scene] private string _waitingSceneName;
 
-    public int _id;
+    //public int _id;
 
     public static NetMan _netMan;
     public event Action OnGameSceneLoaded;

@@ -16,4 +16,10 @@ public class CustomMessages
         public List<Match> Matches;
         public int Max;
     }
+    public struct CreateScoreboard : NetworkMessage
+    {
+        public string name;
+    }
+
+    public struct DestroyScoreboard : NetworkMessage { }
 }

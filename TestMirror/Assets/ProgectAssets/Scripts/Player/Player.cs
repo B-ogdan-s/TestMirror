@@ -2,14 +2,16 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : NetworkBehaviour
 {
+    [SerializeField]
     [SyncVar(hook = nameof(NewHealth))] private int _health;
     [SyncVar(hook = nameof(FlipSprite))] private int _flip = 1;
-    [SyncVar(hook = nameof(HookAttack))] private bool _isAttack = false;
+    [SyncVar(hook = nameof(HookName))] private string _name;
 
     [SyncVar(hook = nameof(WinAction))][SerializeField] private int _wins = 0;
 
@@ -18,7 +20,7 @@ public class Player : NetworkBehaviour
 
     [SerializeField] private int _maxHealth = 10;
     [SerializeField] private int _healingValue = 3;
-    [SerializeField] private int _damage;
+    [SerializeField][SyncVar] private int _damage;
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpF;
 
@@ -29,8 +31,10 @@ public class Player : NetworkBehaviour
     [SerializeField] private PlayerUI _playerUI;
 
     [SerializeField] private CheckJumpTrigger _downTrigger;
-    
-    private bool _isGrounded = true;
+
+    private int _varId = -5;
+
+    [SyncVar]private bool _isGrounded = true;
     private StateMashine _mashine = null;
     private Player _attacking;
 
@@ -40,6 +44,7 @@ public class Player : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+        base.OnStartLocalPlayer();
         _playerUI.SetHealColor();
         GetComponentInChildren<SpriteRenderer>().color = new Color(0, 0, 0, 1f);
 
@@ -51,9 +56,11 @@ public class Player : NetworkBehaviour
             CustomPlayerController._instance._Move += Move;
             CustomPlayerController._instance._StopMove += StartIdel;
             CustomPlayerController._instance._AnimAttack += Attack;
-            PlayerAnimatorMessages._Dead += Dead;
             RestartPlayer._instance._Restart += CmdRestart;
             RestartPlayer._instance._Restart += Restart;
+
+            if(isLocalPlayer)
+                SetName();
         };
 
         _downTrigger._Landing += CmdCheckGround;
@@ -67,7 +74,6 @@ public class Player : NetworkBehaviour
         CustomPlayerController._instance._Move -= Move;
         CustomPlayerController._instance._StopMove -= StartIdel;
         CustomPlayerController._instance._AnimAttack -= Attack;
-        PlayerAnimatorMessages._Dead -= Dead;
 
         _downTrigger._Landing -= CmdCheckGround;
         _downTrigger._Jump -= CmdOutGround;
@@ -79,11 +85,26 @@ public class Player : NetworkBehaviour
         base.OnStopLocalPlayer();
     }
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (Scoreboard._scoreboard != null)
+        {
+            _varId = Scoreboard._scoreboard.AddPlayer();
+            Scoreboard._scoreboard.SetName(_varId, _name);
+            Scoreboard._scoreboard.SetWin(_varId, _wins);
+        }
+    }
+
+    public override void OnStopClient()
+    {
+        Scoreboard._scoreboard.DestrouPlayer(_varId);
+        base.OnStopClient();
+    }
+
     #endregion
 
     #region Command
-
-
     [Command(requiresAuthority = false)]
     private void CmdRestart()
     {
@@ -106,7 +127,7 @@ public class Player : NetworkBehaviour
     [Command]
     private void CmdSetAttack(bool value)
     {
-        _isAttack = value;
+        _attackTrigger.SetActive(value);
     }
     [Command]
     private void CmdCheckGround()
@@ -142,6 +163,12 @@ public class Player : NetworkBehaviour
         _isLive = false;
     }
 
+    [Command]
+    private void CmdSetName(string name)
+    {
+        _name = name;
+    }
+
     #endregion
 
     #region Server
@@ -150,7 +177,19 @@ public class Player : NetworkBehaviour
     public void SetMatchId(int matchId)
     {
         _matchId = matchId;
-        NetMan._netMan._id = matchId;
+    }
+
+
+    [Server]
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log($"Hit {collision.gameObject.name}");
+        if (collision.TryGetComponent(out Damage damage))
+        {
+            Debug.Log($"Hit damagable {collision.gameObject.name}");
+            Damage();
+            _attacking = damage._player;
+        }
     }
 
     #endregion
@@ -159,11 +198,13 @@ public class Player : NetworkBehaviour
     private void WinAction(int _, int newValue)
     {
         if (isLocalPlayer)
+        {
             LosePanelUI._instance.TextWin(newValue);
-    }
-    public void HookAttack(bool oldValue, bool newValue)
-    {
-        _attackTrigger.SetActive(newValue);
+        }
+        else
+        {
+            Scoreboard._scoreboard.SetWin(_varId, newValue);
+        }
     }
     public void FlipSprite(int _, int newValue)
     {
@@ -173,17 +214,23 @@ public class Player : NetworkBehaviour
     {
         _playerUI.SetHealValue((float)newHealth / (float)_maxHealth);
 
-        if (newHealth <= 0 && _isLive)
+        if (newHealth <= 0 && _isLive && isLocalPlayer)
         {
-
-            if (isLocalPlayer)
-                _attacking.CmdWin();
-
-            _mashine.SetState(new DeadState(_playerAnimator));
+            Dead();
             CmdDead();
             SetWin();
         }
     }
+    private void HookName(string old, string newValue)
+    {
+        _playerUI.SetName(newValue);
+
+        if(!isLocalPlayer)
+        {
+            Scoreboard._scoreboard.SetName(_varId, newValue);
+        }
+    }
+
     #endregion
 
     private void Awake()
@@ -191,15 +238,6 @@ public class Player : NetworkBehaviour
         _mashine = new StateMashine(new IdelState(_playerAnimator));
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out Damage damage))
-        {
-            _attacking = damage._player;
-            Damage();
-        }
-    }
     private void ClientMove(int value)
     {
         transform.position += new Vector3(value, 0) * _speed * Time.fixedDeltaTime;
@@ -229,14 +267,11 @@ public class Player : NetworkBehaviour
 
     private void Dead()
     {
-        if (_health > 0)
-        {
-            LosePanelUI._instance.CloseLose();
-        }
-        if (isLocalPlayer && _health <= 0)
-        {
-            LosePanelUI._instance.OpenLose();
-        }
+
+        _attacking.CmdWin();
+        _mashine.SetState(new DeadState(_playerAnimator));
+
+        LosePanelUI._instance.OpenLose();
     }
 
     private void Move(int value)
@@ -253,23 +288,42 @@ public class Player : NetworkBehaviour
 
     private void Attack()
     {
-        CmdSetAttack(true);
-        _mashine.SetState(new AttackState(_playerAnimator, this));
+        if (_isLive && _isGrounded)
+        {
+            CmdSetAttack(true);
+            _mashine.SetState(new AttackState(_playerAnimator));
+            StartCoroutine(StopAttack());
+        }
     }
-    public void StopAttack()
+
+    public IEnumerator StopAttack()
     {
+        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForFixedUpdate();
         CmdSetAttack(false);
-        StartIdel();
+
+        int v = CustomPlayerController._instance.Value;
+        if (v!= 0)
+            _mashine.SetState(new MoveState(_playerAnimator, v));
+        else
+            StartIdel();
     }
 
     private void StartIdel()
     {
         _mashine.SetState(new IdelState(_playerAnimator));
     }
-
+    [Server]
     public void Damage()
     {
-        CmdSetHealth(_health - _damage);
+        _health -= _damage;
+    }
+
+    private async void SetName()
+    {
+        var name = Database.ReadName();
+        await Task.WhenAll(name);
+        CmdSetName(name.Result);
     }
 
     private void SetWin()

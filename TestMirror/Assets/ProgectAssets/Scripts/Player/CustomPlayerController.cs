@@ -16,6 +16,8 @@ public class CustomPlayerController : MonoBehaviour
 
     private int _value = 0;
 
+    public int Value => _value;
+
     private void Awake()
     {
         _instance = this;

@@ -6,18 +6,4 @@ using UnityEngine;
 
 public class PlayerAnimatorMessages : MonoBehaviour
 {
-
-    [SerializeField] private Player _player;
-
-    public static event Action _Dead;
-    [ClientCallback]
-    public void StopAtack()
-    {
-        _player.StopAttack();
-    }
-    [ClientCallback]
-    public void Dead()
-    {
-        _Dead?.Invoke();
-    }
 }

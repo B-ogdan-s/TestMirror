@@ -9,12 +9,10 @@ public class AttackState : PlayerState
     public static System.Action _Exit;
 
     public PlayerAnimator _animator;
-    public Player _player;
     
-    public AttackState(PlayerAnimator animator, Player player)
+    public AttackState(PlayerAnimator animator)
     {
         _animator = animator;
-        _player = player;
     }
 
 

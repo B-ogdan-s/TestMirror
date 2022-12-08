@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638049846470000000
-    m_Hash: 1915251130
+      ticks: 638060241652512581
+    m_Hash: 2060641999
   m_LockFileStatus:
     m_FilePath: D:/GitHab/TestMirror/TestMirror/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638049846470000000
-    m_Hash: 3721929622
+      ticks: 638060241652572675
+    m_Hash: 4214408844
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -230,6 +230,7 @@ m_PackageAssets:
         - 3.0.14
         - 3.0.15
         - 3.0.16
+        - 3.0.17
         compatible:
         - 1.0.2
         - 1.0.6
@@ -263,13 +264,14 @@ m_PackageAssets:
         - 3.0.14
         - 3.0.15
         - 3.0.16
+        - 3.0.17
         verified: 2.0.7
       dependencies:
       - name: com.unity.test-framework
         version: 1.1.1
       resolvedDependencies:
       - name: com.unity.test-framework
-        version: 1.1.29
+        version: 1.1.33
       - name: com.unity.ext.nunit
         version: 1.0.6
       - name: com.unity.modules.imgui
@@ -338,6 +340,7 @@ m_PackageAssets:
         - 2.0.14
         - 2.0.15
         - 2.0.16
+        - 2.0.17
         compatible:
         - 1.0.2
         - 1.0.3
@@ -358,13 +361,14 @@ m_PackageAssets:
         - 2.0.14
         - 2.0.15
         - 2.0.16
-        verified: 2.0.16
+        - 2.0.17
+        verified: 2.0.17
       dependencies:
       - name: com.unity.test-framework
         version: 1.1.9
       resolvedDependencies:
       - name: com.unity.test-framework
-        version: 1.1.29
+        version: 1.1.33
       - name: com.unity.ext.nunit
         version: 1.0.6
       - name: com.unity.modules.imgui
@@ -592,12 +596,12 @@ m_PackageAssets:
         url: https://github.com/Unity-Technologies/Graphics.git
         revision: 5a193e907cafca7b2fa290618e18c3f28a3b451b
         path: 
-    - packageId: com.unity.test-framework@1.1.29
+    - packageId: com.unity.test-framework@1.1.33
       testable: 0
       isDirectDependency: 1
-      version: 1.1.29
+      version: 1.1.33
       source: 1
-      resolvedPath: D:\GitHab\TestMirror\TestMirror\Library\PackageCache\com.unity.test-framework@1.1.29
+      resolvedPath: D:\GitHab\TestMirror\TestMirror\Library\PackageCache\com.unity.test-framework@1.1.33
       assetPath: Packages/com.unity.test-framework
       name: com.unity.test-framework
       displayName: Test Framework
@@ -647,6 +651,7 @@ m_PackageAssets:
         - 1.1.31
         - 1.1.33
         - 1.3.0
+        - 1.3.1
         - 2.0.1-exp.1
         - 2.0.1-exp.2
         - 2.0.1-pre.12
@@ -657,6 +662,7 @@ m_PackageAssets:
         - 1.1.31
         - 1.1.33
         - 1.3.0
+        - 1.3.1
         - 2.0.1-exp.1
         - 2.0.1-exp.2
         - 2.0.1-pre.12
@@ -691,13 +697,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637647922650000000
+      datePublishedTicks: 637938212700000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
-        url: git+https://github.com/Unity-Technologies/com.unity.test-framework.git
-        revision: dac53542acdab7a12e9ebf111ac588d0e53cf483
+        url: https://github.com/Unity-Technologies/com.unity.test-framework.git
+        revision: 34a4d423d64926635eb36d3bb86276179cc186e1
         path: 
     - packageId: com.unity.textmeshpro@3.0.6
       testable: 0
@@ -3711,6 +3717,7 @@ m_PackageAssets:
         - 1.4.3
         - 1.5.2
         - 1.6.0
+        - 1.7.0
         compatible:
         - 1.0.1
         - 1.1.0-pre.7
@@ -3729,6 +3736,7 @@ m_PackageAssets:
         - 1.4.3
         - 1.5.2
         - 1.6.0
+        - 1.7.0
         verified: 1.0.1
       dependencies:
       - name: com.unity.modules.unitywebrequest
