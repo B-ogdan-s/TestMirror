@@ -16,6 +16,7 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(WinAction))][SerializeField] private int _wins = 0;
 
     [SerializeField][SyncVar] private bool _isLive = true;
+    [SyncVar(hook = nameof(HookAttack))] private bool _isAttack = false;
     [SyncVar] private int _matchId;
 
     [SerializeField] private int _maxHealth = 10;
@@ -24,7 +25,7 @@ public class Player : NetworkBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpF;
 
-    [SerializeField] private GameObject _attackTrigger;
+    [SerializeField] private BoxCollider2D _attackTrigger;
 
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private PlayerAnimator _playerAnimator;
@@ -127,7 +128,7 @@ public class Player : NetworkBehaviour
     [Command]
     private void CmdSetAttack(bool value)
     {
-        _attackTrigger.SetActive(value);
+        _isAttack = value;
     }
     [Command]
     private void CmdCheckGround()
@@ -179,19 +180,6 @@ public class Player : NetworkBehaviour
         _matchId = matchId;
     }
 
-
-    [Server]
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log($"Hit {collision.gameObject.name}");
-        if (collision.TryGetComponent(out Damage damage))
-        {
-            Debug.Log($"Hit damagable {collision.gameObject.name}");
-            Damage();
-            _attacking = damage._player;
-        }
-    }
-
     #endregion
 
     #region Hook
@@ -221,6 +209,10 @@ public class Player : NetworkBehaviour
             SetWin();
         }
     }
+    private void HookAttack(bool old, bool newValue)
+    {
+        _attackTrigger.enabled = newValue;
+    }
     private void HookName(string old, string newValue)
     {
         _playerUI.SetName(newValue);
@@ -232,6 +224,17 @@ public class Player : NetworkBehaviour
     }
 
     #endregion
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log($"Hit {collision.gameObject.name}");
+        if (collision.TryGetComponent(out Damage damage))
+        {
+            Debug.Log($"Hit damagable {collision.gameObject.name}");
+            Damage();
+            _attacking = damage._player;
+        }
+    }
 
     private void Awake()
     {
@@ -313,10 +316,10 @@ public class Player : NetworkBehaviour
     {
         _mashine.SetState(new IdelState(_playerAnimator));
     }
-    [Server]
+
     public void Damage()
     {
-        _health -= _damage;
+        CmdSetHealth(_health - _damage);
     }
 
     private async void SetName()

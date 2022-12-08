@@ -151,7 +151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6311313831527733771
 Transform:
   m_ObjectHideFlags: 0
@@ -173,7 +173,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659198357009460054}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -750,7 +750,7 @@ MonoBehaviour:
   _damage: 1
   _speed: 4
   _jumpF: 185
-  _attackTrigger: {fileID: 1659198357009460054}
+  _attackTrigger: {fileID: 5079513455604421628}
   _rigidbody: {fileID: 3843395147827780906}
   _playerAnimator: {fileID: 1009715419592449734}
   _playerUI: {fileID: 5069191116129982751}

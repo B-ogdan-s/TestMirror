@@ -1,0 +1,159 @@
+{
+  "Nodes": [
+    {
+      "Annotation": "all_tundra_nodes",
+      "Action": "",
+      "Inputs": [],
+      "Outputs": [],
+      "TargetDirectories": [],
+      "PassIndex": 0,
+      "ToBuildDependencies": [
+        1
+      ],
+      "ToUseDependencies": [],
+      "OverwriteOutputs": true,
+      "FrontendResponseFiles": [],
+      "AllowUnexpectedOutput": true,
+      "AllowedOutputSubstrings": [],
+      "DebugActionIndex": 0
+    },
+    {
+      "Annotation": "Il2Cpp D:/GitHab/TestMirror/TestMirror/Library/Il2cppBuildCache/Windows/x64/Native/GameAssembly.dll",
+      "Action": "D:\\Project_1\\Unity\\2020.3.27f1\\Editor\\Data\\il2cpp/build/deploy/netcoreapp3.1/il2cpp.exe --convert-to-cpp --emit-null-checks --enable-array-bounds-check --dotnetprofile=\"unityaot\" --compile-cpp --libil2cpp-static --platform=\"WindowsDesktop\" --architecture=\"x64\" --configuration=\"Release\" --outputpath=\"D:\\GitHab\\TestMirror\\TestMirror\\Library/Il2cppBuildCache/Windows/x64\\Native\\GameAssembly.dll\" --cachedirectory=\"D:\\GitHab\\TestMirror\\TestMirror\\Assets\\..\\Library/il2cpp_cache\" --baselib-directory=\"D:/Project_1/Unity/2020.3.27f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport\\Variations\\win64_nondevelopment_il2cpp\" --avoid-dynamic-library-copy --incremental-g-c-time-slice=3 --profiler-report --map-file-parser=D:/Project_1/Unity/2020.3.27f1/Editor/Data/Tools/MapFileParser/MapFileParser.exe --directory=D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed --generatedcppdir=D:/GitHab/TestMirror/TestMirror/Library/Il2cppBuildCache/Windows/x64/il2cppOutput --stats-output-dir=D:/GitHab/TestMirror/TestMirror/Library/Il2cppBuildCache/Windows/x64/il2cppStats",
+      "Inputs": [
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Assembly-CSharp.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Firebase.App.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Firebase.Auth.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Firebase.Database.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Firebase.Platform.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/kcp2k.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/LunarConsole.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/MiddlewareTransport.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Mirror.Authenticators.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Mirror.Components.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Mirror.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Mirror.Examples.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Mono.Security.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/mscorlib.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/MultiplexTransport.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/SimpleWebTransport.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/System.Configuration.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/System.Core.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/System.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/System.Xml.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Telepathy.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Unity.Mathematics.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Unity.RenderPipelines.Core.Runtime.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Unity.RenderPipelines.Universal.Runtime.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/Unity.TextMeshPro.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.AIModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.AndroidJNIModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.AnimationModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.AssetBundleModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.AudioModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.CoreModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.DirectorModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.GridModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.IMGUIModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.InputLegacyModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.InputModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.JSONSerializeModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.ParticleSystemModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.Physics2DModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.PhysicsModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.SharedInternalsModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.SpriteShapeModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.SubsystemsModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.TerrainModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.TextCoreModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.TextRenderingModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.TilemapModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.UI.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.UIElementsNativeModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.UIModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.UnityAnalyticsModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.UnityWebRequestModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.VFXModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.VideoModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.VRModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/UnityEngine.XRModule.dll",
+        "D:/GitHab/TestMirror/TestMirror/Temp/StagingArea/Data/Managed/where-allocations.dll",
+        "D:/Project_1/Unity/2020.3.27f1/Editor/Data/Tools/MapFileParser/MapFileParser.exe",
+        "D:/Project_1/Unity/2020.3.27f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/Variations/win64_nondevelopment_il2cpp/baselib.dll.lib",
+        "D:/Project_1/Unity/2020.3.27f1/Editor/Data/il2cpp/build/deploy/netcoreapp3.1/il2cpp.exe"
+      ],
+      "Outputs": [
+        "D:/GitHab/TestMirror/TestMirror/Library/Il2cppBuildCache/Windows/x64/Native/GameAssembly.dll"
+      ],
+      "TargetDirectories": [],
+      "PassIndex": 0,
+      "ToBuildDependencies": [],
+      "ToUseDependencies": [],
+      "OverwriteOutputs": false,
+      "FrontendResponseFiles": [],
+      "AllowUnexpectedOutput": true,
+      "AllowedOutputSubstrings": [],
+      "DebugActionIndex": 1
+    }
+  ],
+  "FileSignatures": [
+    {
+      "File": "../../../../../../../Project_1/Unity/2020.3.27f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/Variations/win64_nondevelopment_il2cpp"
+    },
+    {
+      "File": "../../../../Temp/StagingArea/Data/Managed"
+    },
+    {
+      "File": "artifacts/buildprogram/tundra_buildprogram.dag.json"
+    },
+    {
+      "File": "il2cpp_settings.json"
+    },
+    {
+      "File": "unitylinker_settings.json"
+    }
+  ],
+  "GlobSignatures": [
+    {
+      "Path": "../../../../Temp/StagingArea/Data/Managed"
+    },
+    {
+      "Path": "../../../../../../../Project_1/Unity/2020.3.27f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/Variations/win64_nondevelopment_il2cpp",
+      "Recurse": 1
+    }
+  ],
+  "ContentDigestExtensions": [
+    ".rsp",
+    ".dll",
+    ".exe",
+    ".txt",
+    ".c",
+    ".cpp",
+    ".h",
+    ".cs",
+    ".hpp"
+  ],
+  "StructuredLogFileName": "artifacts/tundra.log.json",
+  "StateFileName": "artifacts/TundraBuildState.state",
+  "StateFileNameTmp": "artifacts/TundraBuildState.state.tmp",
+  "ScanCacheFileName": "artifacts/tundra.scancache",
+  "ScanCacheFileNameTmp": "artifacts/tundra.scancache.tmp",
+  "DigestCacheFileName": "artifacts/tundra.digestcache",
+  "DigestCacheFileNameTmp": "artifacts/tundra.digestcache.tmp",
+  "DirectoriesCausingImplicitDependencies": [],
+        "NamedNodes": {
+          "all_tundra_nodes": 0
+        }
+,  "DefaultNodes": [
+    0
+  ],
+  "SharedResources": [],
+  "Scanners": [],
+  "Identifier": "artifacts/tundra.dag.json",
+  "BuildTitle": "Bee",
+  "RelativePathToRoot": ".."
+}

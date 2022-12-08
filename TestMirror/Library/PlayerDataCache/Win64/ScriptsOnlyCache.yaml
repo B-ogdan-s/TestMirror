@@ -475,7 +475,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 8578}
     - Class: 114
-      Script: {instanceID: 26930}
+      Script: {instanceID: 28496}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -2159,7 +2159,7 @@ ScriptsOnlyBuild:
     className: Leaderboard
   - hash:
       serializedVersion: 2
-      Hash: 99aac1caf341df346acce4170359af18
+      Hash: d19e392432c9ee62b0b9e0b91c02b38d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -2318,4 +2318,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/StartScene.unity
   - Assets/Scenes/RoomScene.unity
   - Assets/Scenes/PlayingScene.unity
-  playerPath: D:/GitHab/TestMirror/TestMirror/Build/TestMirror.exe
+  playerPath: D:/GitHab/Build/TestMirror/Build/TestMirror.exe
